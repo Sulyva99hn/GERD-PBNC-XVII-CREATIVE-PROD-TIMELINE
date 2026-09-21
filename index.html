@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esports Creative Asset Production Timeline</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        div2d: '#06b6d4',      /* Cyan-500 */
+                        divFhd: '#8b5cf6',     /* Purple-500 */
+                        divLed: '#10b981',     /* Emerald-500 */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        /* Timeline styling */
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            bottom: 2rem;
+            left: 1.5rem;
+            width: 3px;
+            background: linear-gradient(to bottom, #06b6d4, #8b5cf6, #10b981);
+            border-radius: 9999px;
+        }
+        @media (min-width: 1024px) {
+            .timeline-line-center::before {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Top Header -->
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Brand -->
+            <div class="flex items-center space-x-3">
+                <div class="p-2.5 bg-gradient-to-tr from-cyan-500 to-purple-600 rounded-xl text-slate-950 font-black shadow-lg shadow-cyan-500/20">
+                    <i data-lucide="clapperboard" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-black tracking-wider uppercase bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-400">
+                        PBNC XVII CREATIVE PRODUCTION TIMELINE
+                    </h1>
+                    <p class="text-xs text-slate-400 hidden sm:block">2D Assets & Motion Graphics Tracker</p>
+                </div>
+            </div>
+
+            <!-- Global Action Controls -->
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <!-- Broadcast Asset Design Reference Link Button -->
+                <div class="inline-flex items-center bg-purple-950/60 border border-purple-800/60 rounded-xl p-1">
+                    <a id="broadcastRefBtn" href="#" target="_blank" class="flex items-center space-x-1.5 px-2.5 py-1 text-xs font-bold text-purple-300 hover:text-purple-100 transition">
+                        <i data-lucide="palette" class="w-3.5 h-3.5 text-purple-400"></i>
+                        <span class="hidden md:inline">Broadcast Asset Design Ref</span>
+                        <span class="md:hidden">Design Ref</span>
+                        <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+                    </a>
+                    <button onclick="editBroadcastRefLink()" class="p-1 text-slate-400 hover:text-purple-300 border-l border-purple-800/60 pl-1.5 transition" title="Edit Design Reference URL">
+                        <i data-lucide="link" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+
+                <!-- Key Visual Reference Link Button -->
+                <div class="inline-flex items-center bg-amber-950/60 border border-amber-800/60 rounded-xl p-1">
+                    <a id="keyVisualBtn" href="#" target="_blank" class="flex items-center space-x-1.5 px-2.5 py-1 text-xs font-bold text-amber-300 hover:text-amber-100 transition">
+                        <i data-lucide="image" class="w-3.5 h-3.5 text-amber-400"></i>
+                        <span class="hidden md:inline">Key Visual Elements</span>
+                        <span class="md:hidden">KV Elements</span>
+                        <i data-lucide="external-link" class="w-3 h-3 opacity-70"></i>
+                    </a>
+                    <button onclick="editKeyVisualLink()" class="p-1 text-slate-400 hover:text-amber-300 border-l border-amber-800/60 pl-1.5 transition" title="Edit Key Visual Elements URL">
+                        <i data-lucide="link" class="w-3.5 h-3.5"></i>
+                    </button>
+                </div>
+
+                <button id="addDeliverableBtn" class="flex items-center space-x-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold px-3.5 py-2 rounded-xl text-xs sm:text-sm transition duration-200 shadow-md shadow-cyan-500/20 active:scale-95">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                    <span>Add Item</span>
+                </button>
+                
+                <!-- Import/Export Menu Dropdown -->
+                <div class="relative inline-block text-left">
+                    <button id="dataMenuBtn" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                        <i data-lucide="arrow-down-up" class="w-4 h-4"></i>
+                    </button>
+                    <div id="dataMenuDropdown" class="hidden absolute right-0 mt-2 w-48 bg-slate-800 border border-slate-700 rounded-xl shadow-xl z-50 p-1">
+                        <button id="exportJsonBtn" class="w-full text-left px-3 py-2 text-xs text-slate-300 hover:bg-slate-700 rounded-lg flex items-center space-x-2">
+                            <i data-lucide="download" class="w-3.5 h-3.5 text-cyan-400"></i>
+                            <span>Export Backup (JSON)</span>
+                        </button>
+                        <button id="importJsonBtn" class="w-full text-left px-3 py-2 text-xs text-slate-300 hover:bg-slate-700 rounded-lg flex items-center space-x-2">
+                            <i data-lucide="upload" class="w-3.5 h-3.5 text-purple-400"></i>
+                            <span>Import Data (JSON)</span>
+                        </button>
+                        <input type="file" id="jsonFileInput" class="hidden" accept=".json">
+                        <button id="resetDataBtn" class="w-full text-left px-3 py-2 text-xs text-rose-400 hover:bg-rose-950/40 rounded-lg flex items-center space-x-2">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                            <span>Reset Default Data</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 flex-1 w-full">
+
+        <!-- Top Overview & Division Quick Links Bar -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            
+            <!-- Global Completion Stats -->
+            <div class="glass-card rounded-2xl p-4 flex flex-col justify-between">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Completion</span>
+                    <i data-lucide="pie-chart" class="w-4 h-4 text-cyan-400"></i>
+                </div>
+                <div>
+                    <div class="flex items-baseline space-x-2">
+                        <span id="overallPercentage" class="text-3xl font-black text-white">0%</span>
+                        <span id="overallFraction" class="text-xs text-slate-400">0/0 Completed</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2 mt-2 overflow-hidden">
+                        <div id="overallProgressBar" class="bg-gradient-to-r from-cyan-500 via-purple-500 to-emerald-400 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Division Drive Link Card 1: 2D Assets -->
+            <div class="glass-card rounded-2xl p-4 border-l-4 border-l-cyan-500 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">2D ASSET DIVISION</span>
+                        <span id="div2dRatio" class="text-xs font-mono text-slate-400">0/0</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3">Overlay, Bracket, MVP, Schedules</p>
+                </div>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span id="div2dPercent" class="text-sm font-bold text-slate-200">0%</span>
+                    <a id="driveLink2D" href="https://drive.google.com/drive/folders/1Fqc8ujJ1hXoZOCgF912RvBcsfw2wLLED" target="_blank" class="inline-flex items-center space-x-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-800/60 px-2.5 py-1.5 rounded-lg transition">
+                        <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+                        <span>Open Drive</span>
+                        <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Division Drive Link Card 2: FHD Motion -->
+            <div class="glass-card rounded-2xl p-4 border-l-4 border-l-purple-500 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">FHD MOTION</span>
+                        <span id="divFhdRatio" class="text-xs font-mono text-slate-400">0/0</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3">Loops, Stingers, OBB, Transitions</p>
+                </div>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span id="divFhdPercent" class="text-sm font-bold text-slate-200">0%</span>
+                    <a id="driveLinkFHD" href="https://drive.google.com/drive/folders/11s-YqfNjiPtYtDBlHhJwx_-fh-m4DAHg" target="_blank" class="inline-flex items-center space-x-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300 bg-purple-950/60 hover:bg-purple-900/60 border border-purple-800/60 px-2.5 py-1.5 rounded-lg transition">
+                        <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+                        <span>Open Drive</span>
+                        <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Division Drive Link Card 3: LED Motion -->
+            <div class="glass-card rounded-2xl p-4 border-l-4 border-l-emerald-500 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">LED MOTION</span>
+                        <span id="divLedRatio" class="text-xs font-mono text-slate-400">0/0</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-3">Stage LED, Arena KV Loops & Stingers</p>
+                </div>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span id="divLedPercent" class="text-sm font-bold text-slate-200">0%</span>
+                    <a id="driveLinkLED" href="https://drive.google.com/drive/folders/1vOzIyr7KvOLGNgTtqXXEbilL8-qHhRTG" target="_blank" class="inline-flex items-center space-x-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-950/60 hover:bg-emerald-900/60 border border-emerald-800/60 px-2.5 py-1.5 rounded-lg transition">
+                        <i data-lucide="folder-open" class="w-3.5 h-3.5"></i>
+                        <span>Open Drive</span>
+                        <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter, View Toggle, and Search Control Panel -->
+        <div class="glass-card rounded-2xl p-4 flex flex-col lg:flex-row gap-4 items-center justify-between">
+            
+            <!-- Division Filter Pills -->
+            <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
+                <button onclick="setDivisionFilter('ALL')" class="div-filter-btn active-filter px-3.5 py-1.5 rounded-xl text-xs font-bold transition border border-transparent" data-div="ALL">
+                    All Divisions
+                </button>
+                <button onclick="setDivisionFilter('2D ASSET LIST')" class="div-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold text-cyan-400 hover:bg-cyan-950/50 transition border border-cyan-800/40" data-div="2D ASSET LIST">
+                    2D Assets
+                </button>
+                <button onclick="setDivisionFilter('FHD MOTION')" class="div-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold text-purple-400 hover:bg-purple-950/50 transition border border-purple-800/40" data-div="FHD MOTION">
+                    FHD Motion
+                </button>
+                <button onclick="setDivisionFilter('LED MOTION')" class="div-filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold text-emerald-400 hover:bg-emerald-950/50 transition border border-emerald-800/40" data-div="LED MOTION">
+                    LED Motion
+                </button>
+            </div>
+
+            <!-- Search, Status, and View Switcher -->
+            <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+                
+                <!-- Status Filter Dropdown -->
+                <select id="statusFilterSelect" onchange="renderTimeline()" class="bg-slate-900 border border-slate-700 text-xs text-slate-300 rounded-xl px-3 py-2 outline-none focus:border-cyan-500">
+                    <option value="ALL">All Statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Review">In Review</option>
+                    <option value="Completed">Completed</option>
+                </select>
+
+                <!-- Search Input -->
+                <div class="relative flex-1 sm:w-60">
+                    <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                    <input type="text" id="searchInput" placeholder="Search deliverables..." oninput="renderTimeline()" class="w-full pl-9 pr-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition">
+                </div>
+
+                <!-- View Layout Switcher (Timeline vs Grid List) -->
+                <div class="flex items-center bg-slate-900 rounded-xl p-1 border border-slate-800">
+                    <button id="viewTimelineBtn" onclick="setViewMode('timeline')" class="p-1.5 rounded-lg text-xs font-semibold text-cyan-400 bg-slate-800 shadow transition" title="Milestone Timeline View">
+                        <i data-lucide="git-commit" class="w-4 h-4"></i>
+                    </button>
+                    <button id="viewGridBtn" onclick="setViewMode('grid')" class="p-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition" title="Grid List View">
+                        <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline Workspace Area -->
+        <div id="timelineContainer" class="relative">
+            <!-- Timeline milestone lists rendered here dynamically -->
+        </div>
+
+        <!-- Empty Filter State -->
+        <div id="emptyState" class="hidden text-center py-20 glass-card rounded-2xl">
+            <div class="inline-flex p-4 rounded-2xl bg-slate-800/80 text-slate-500 mb-3 border border-slate-700">
+                <i data-lucide="file-search" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-300">No matching deliverables found</h3>
+            <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Try clearing search filters or selecting a different division tab.</p>
+        </div>
+    </main>
+
+    <!-- Add/Edit Deliverable Item Modal -->
+    <div id="itemModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-lg w-full p-6 shadow-2xl transform scale-95 transition-transform duration-300" id="modalContainer">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                <div class="flex items-center space-x-2">
+                    <div class="p-2 bg-cyan-500/10 text-cyan-400 rounded-lg">
+                        <i data-lucide="edit-3" class="w-4 h-4"></i>
+                    </div>
+                    <h3 id="modalHeading" class="text-base font-bold text-slate-100">Edit Asset Deliverable</h3>
+                </div>
+                <button onclick="closeModal()" class="p-1.5 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form id="itemForm" class="space-y-4">
+                <input type="hidden" id="formItemId">
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Item Name / Title *</label>
+                    <input type="text" id="formTitle" required placeholder="e.g. Ingame Overlay + Cam Player" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Division *</label>
+                        <select id="formDivision" required class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500">
+                            <option value="2D ASSET LIST">2D ASSET LIST</option>
+                            <option value="FHD MOTION">FHD MOTION</option>
+                            <option value="LED MOTION">LED MOTION</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Deliverable Date *</label>
+                        <input type="text" id="formDate" required placeholder="e.g. Oct 1 Deliverables" list="dateOptions" class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500">
+                        <datalist id="dateOptions">
+                            <option value="Oct 1 Deliverables">
+                            <option value="Oct 8 Deliverables">
+                            <option value="Oct 15 Deliverables">
+                            <option value="Oct 22 Deliverables">
+                        </datalist>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Status *</label>
+                    <select id="formStatus" required class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Review">In Review</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Direct Asset File Upload Link (Google Drive / Dropbox)</label>
+                    <input type="url" id="formDriveLink" placeholder="https://drive.google.com/file/d/..." class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500">
+                    <p class="text-[10px] text-slate-500 mt-1">If empty, defaults to parent division Drive folder.</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Notes / Production Details</label>
+                    <textarea id="formNotes" rows="2" placeholder="Resolution specs, aspect ratio, audio stingers..." class="w-full px-3 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-xs text-slate-100 focus:outline-none focus:border-cyan-500 resize-none"></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-2 pt-4 border-t border-slate-800">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold rounded-xl text-xs shadow-lg shadow-cyan-500/20 transition">Save Deliverable</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Parent Division Google Drive Links & Design Reference Links
+        let divisionDriveLinks = {
+            '2D ASSET LIST': 'https://drive.google.com/drive/folders/1Fqc8ujJ1hXoZOCgF912RvBcsfw2wLLED',
+            'FHD MOTION': 'https://drive.google.com/drive/folders/11s-YqfNjiPtYtDBlHhJwx_-fh-m4DAHg',
+            'LED MOTION': 'https://drive.google.com/drive/folders/1vOzIyr7KvOLGNgTtqXXEbilL8-qHhRTG'
+        };
+
+        let broadcastDesignRefLink = localStorage.getItem('pbic_broadcast_ref_link') || '#';
+        let keyVisualLink = localStorage.getItem('pbic_key_visual_link') || '#';
+
+        // Complete Initial Dataset mapped from user query - ALL DEFAULTS INITIALIZED TO PENDING
+        const defaultDeliverables = [
+            // --- 2D ASSET LIST ---
+            // Oct 1
+            { id: '2d-1', title: '1. Waiting Screen Countdown', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-2', title: '2. Waiting Screen TVC', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-3', title: '3. LT Host', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-4', title: '4. LT Caster Name', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-5', title: '5. LT Information', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-6', title: '6. LT Team Name', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-7', title: '7. LT Caster Prediction', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-8', title: '8. LT Audience Prediction', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-9', title: '9. Tournament Bracket', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-10', title: '10. Match Schedule', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-11', title: '11. Head to Head Player', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-12', title: '12. LT Map Selection', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-13', title: '13. Team Versus', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-14', title: '14. Ingame Overlay + Cam Player', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Urgent', notes: 'Core broadcast HUD' },
+            { id: '2d-15', title: '15. Highlight', division: '2D ASSET LIST', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+
+            // Oct 8
+            { id: '2d-16', title: '16. Match Result', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-17', title: '17. MVP', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-18', title: '18. Player to Watch', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-19', title: '19. Qualified to PBIC', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-20', title: '20. Highlight Day 1', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-21', title: '21. End of day', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-22', title: '22. Credit Title', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-23', title: '23. Champion Screen', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-24', title: '24. See You Tomorrow', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-25', title: '25. LT Name + Title', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-26', title: '26. Tournament Format', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-27', title: '27. Qualified Teams', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-28', title: '28. Prize Pool', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-29', title: '29. FS Draft Map', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-30', title: '30. LT First Half', division: '2D ASSET LIST', date: 'Oct 8 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+
+            // Oct 15
+            { id: '2d-31', title: '31. LT Victory', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-32', title: '32. FS TEAM LINEUP', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-33', title: '33. FS VICTORY', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-34', title: '34. LT AWARDING', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-35', title: '35. FS AWARDING', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-36', title: '36. LT HIGHLIGHT OF THE DAY', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-37', title: '37. BRACKET SEED PBIC 2026', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: '2d-38', title: '38. THUMBNAIL YT', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: '2d-39', title: '39. LT Champion', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'Urgent', notes: '' },
+            { id: '2d-40', title: '40. LT Player Change', division: '2D ASSET LIST', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+
+            // --- FHD MOTION ---
+            // Oct 1
+            { id: 'fhd-1', title: '1. KV LOOP', division: 'FHD MOTION', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: 'Key Visual Animation 60fps' },
+            { id: 'fhd-2', title: '2. BG Loop', division: 'FHD MOTION', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: 'Stage background video loop' },
+            { id: 'fhd-3', title: '3. General Stinger', division: 'FHD MOTION', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: 'Audio transition included' },
+            { id: 'fhd-4', title: '4. Highlight Stinger', division: 'FHD MOTION', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: 'fhd-5', title: '5. Champion Stinger', division: 'FHD MOTION', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: 'fhd-6', title: '6. Versus Stinger', division: 'FHD MOTION', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: 'fhd-7', title: '7. STINGER VICTORY', division: 'FHD MOTION', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: 'fhd-8', title: '8. Half Time Stinger', division: 'FHD MOTION', date: 'Oct 1 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            // Oct 15
+            { id: 'fhd-9', title: '9. OBB', division: 'FHD MOTION', date: 'Oct 15 Deliverables', status: 'Pending', fileLink: '', priority: 'Urgent', notes: 'Official Opening Broadcast Bumper' },
+
+            // --- LED MOTION ---
+            // Oct 22
+            { id: 'led-1', title: '1. KV LOOP', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: 'Custom LED aspect ratio' },
+            { id: 'led-2', title: '2. BG Loop', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: 'led-3', title: '3. General Stinger', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: 'led-4', title: '4. Game Start', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: 'led-5', title: '5. Champion Stinger', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: 'led-6', title: '6. Team Introduce', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: 'led-7', title: '7. Team Victory', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: 'led-8', title: '8. Team Champion', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'High', notes: '' },
+            { id: 'led-9', title: '9. Big Countdown', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'Urgent', notes: 'Arena entrance countdown' },
+            { id: 'led-10', title: '10. Match Preparation', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' },
+            { id: 'led-11', title: '11. Ingame', division: 'LED MOTION', date: 'Oct 22 Deliverables', status: 'Pending', fileLink: '', priority: 'Normal', notes: '' }
+        ];
+
+        // App State
+        let items = JSON.parse(localStorage.getItem('pbic_timeline_items')) || defaultDeliverables;
+        
+        // Ensure stored items are updated to 'Pending' if resetting local cache was needed
+        if (!localStorage.getItem('pbic_initialized_pending_v2')) {
+            items = defaultDeliverables;
+            localStorage.setItem('pbic_timeline_items', JSON.stringify(items));
+            localStorage.setItem('pbic_initialized_pending_v2', 'true');
+        }
+
+        let storedDriveLinks = JSON.parse(localStorage.getItem('pbic_drive_links')) || divisionDriveLinks;
+        // Ensure LED MOTION link is updated if it was previously empty in localStorage
+        if (!storedDriveLinks['LED MOTION'] || storedDriveLinks['LED MOTION'] === '') {
+            storedDriveLinks['LED MOTION'] = divisionDriveLinks['LED MOTION'];
+            localStorage.setItem('pbic_drive_links', JSON.stringify(storedDriveLinks));
+        }
+        let currentDivisionFilter = 'ALL';
+        let currentViewMode = 'timeline'; // 'timeline' or 'grid'
+
+        // Helper: Save to LocalStorage
+        function saveData() {
+            localStorage.setItem('pbic_timeline_items', JSON.stringify(items));
+            localStorage.setItem('pbic_drive_links', JSON.stringify(storedDriveLinks));
+            localStorage.setItem('pbic_broadcast_ref_link', broadcastDesignRefLink);
+            localStorage.setItem('pbic_key_visual_link', keyVisualLink);
+            updateMetrics();
+        }
+
+        // Calculate and Update Dashboard Metrics & Reference Buttons
+        function updateMetrics() {
+            const total = items.length;
+            const completedTotal = items.filter(i => i.status === 'Completed').length;
+            const overallPct = total > 0 ? Math.round((completedTotal / total) * 100) : 0;
+
+            document.getElementById('overallPercentage').innerText = `${overallPct}%`;
+            document.getElementById('overallFraction').innerText = `${completedTotal}/${total} Done`;
+            document.getElementById('overallProgressBar').style.width = `${overallPct}%`;
+
+            // Calculate per division stats
+            const divisions = ['2D ASSET LIST', 'FHD MOTION', 'LED MOTION'];
+            const keys = { '2D ASSET LIST': 'div2d', 'FHD MOTION': 'divFhd', 'LED MOTION': 'divLed' };
+
+            divisions.forEach(div => {
+                const divItems = items.filter(i => i.division === div);
+                const divDone = divItems.filter(i => i.status === 'Completed').length;
+                const divTotal = divItems.length;
+                const divPct = divTotal > 0 ? Math.round((divDone / divTotal) * 100) : 0;
+                
+                const prefix = keys[div];
+                if (document.getElementById(`${prefix}Ratio`)) {
+                    document.getElementById(`${prefix}Ratio`).innerText = `${divDone}/${divTotal}`;
+                    document.getElementById(`${prefix}Percent`).innerText = `${divPct}% Done`;
+                }
+            });
+
+            // Update LED Motion Drive link href
+            const ledLink = storedDriveLinks['LED MOTION'] || divisionDriveLinks['LED MOTION'];
+            const ledLinkEl = document.getElementById('driveLinkLED');
+            if (ledLinkEl) {
+                ledLinkEl.href = ledLink;
+            }
+
+            // Broadcast Asset Design Reference Link Update
+            const refBtn = document.getElementById('broadcastRefBtn');
+            if (refBtn) {
+                refBtn.href = broadcastDesignRefLink && broadcastDesignRefLink !== '#' ? broadcastDesignRefLink : 'javascript:void(0)';
+                if (broadcastDesignRefLink === '#' || !broadcastDesignRefLink) {
+                    refBtn.onclick = function(e) {
+                        if (broadcastDesignRefLink === '#' || !broadcastDesignRefLink) {
+                            e.preventDefault();
+                            editBroadcastRefLink();
+                        }
+                    };
+                } else {
+                    refBtn.onclick = null;
+                }
+            }
+
+            // Key Visual Reference Link Update
+            const kvBtn = document.getElementById('keyVisualBtn');
+            if (kvBtn) {
+                kvBtn.href = keyVisualLink && keyVisualLink !== '#' ? keyVisualLink : 'javascript:void(0)';
+                if (keyVisualLink === '#' || !keyVisualLink) {
+                    kvBtn.onclick = function(e) {
+                        if (keyVisualLink === '#' || !keyVisualLink) {
+                            e.preventDefault();
+                            editKeyVisualLink();
+                        }
+                    };
+                } else {
+                    kvBtn.onclick = null;
+                }
+            }
+        }
+
+        // Edit Broadcast Design Reference Link
+        window.editBroadcastRefLink = function() {
+            const current = broadcastDesignRefLink === '#' ? '' : broadcastDesignRefLink;
+            const newLink = prompt('Enter Broadcast Asset Design Reference URL (e.g., Figma, Drive, Pinterest, Arena Styleguide link):', current);
+            if (newLink !== null) {
+                broadcastDesignRefLink = newLink.trim() || '#';
+                saveData();
+                renderTimeline();
+            }
+        };
+
+        // Edit Key Visual Reference Link
+        window.editKeyVisualLink = function() {
+            const current = keyVisualLink === '#' ? '' : keyVisualLink;
+            const newLink = prompt('Enter Key Visual Elements URL (e.g., Google Drive, PSD/AI, Figma, Dropbox):', current);
+            if (newLink !== null) {
+                keyVisualLink = newLink.trim() || '#';
+                saveData();
+                renderTimeline();
+            }
+        };
+
+        // Data Dropdown Toggle
+        const dataMenuBtn = document.getElementById('dataMenuBtn');
+        const dataMenuDropdown = document.getElementById('dataMenuDropdown');
+
+        dataMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dataMenuDropdown.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', () => {
+            dataMenuDropdown.classList.add('hidden');
+        });
+
+        // JSON Export
+        document.getElementById('exportJsonBtn').addEventListener('click', () => {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({ items, storedDriveLinks, broadcastDesignRefLink, keyVisualLink }, null, 2));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", `pbic_timeline_backup_${new Date().toISOString().slice(0,10)}.json`);
+            dlAnchorElem.click();
+        });
+
+        // JSON Import
+        const jsonFileInput = document.getElementById('jsonFileInput');
+        document.getElementById('importJsonBtn').addEventListener('click', () => {
+            jsonFileInput.click();
+        });
+
+        jsonFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const parsed = JSON.parse(evt.target.result);
+                    if (parsed.items && Array.isArray(parsed.items)) {
+                        items = parsed.items;
+                        if (parsed.storedDriveLinks) storedDriveLinks = parsed.storedDriveLinks;
+                        if (parsed.broadcastDesignRefLink) broadcastDesignRefLink = parsed.broadcastDesignRefLink;
+                        if (parsed.keyVisualLink) keyVisualLink = parsed.keyVisualLink;
+                        saveData();
+                        renderTimeline();
+                    } else {
+                        alert('Invalid JSON file format.');
+                    }
+                } catch(err) {
+                    alert('Error parsing JSON backup file.');
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        // Reset to Default Data
+        document.getElementById('resetDataBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset to default timeline data? All custom edits will be reverted.')) {
+                items = [...defaultDeliverables];
+                storedDriveLinks = { ...divisionDriveLinks };
+                saveData();
+                renderTimeline();
+            }
+        });
+
+        // Division Filter Handler
+        window.setDivisionFilter = function(division) {
+            currentDivisionFilter = division;
+            document.querySelectorAll('.div-filter-btn').forEach(btn => {
+                if (btn.dataset.div === division) {
+                    btn.classList.add('bg-cyan-500', 'text-slate-950', 'shadow-md', 'shadow-cyan-500/20');
+                    btn.classList.remove('text-cyan-400', 'text-purple-400', 'text-emerald-400', 'border-cyan-800/40', 'border-purple-800/40', 'border-emerald-800/40');
+                } else {
+                    btn.classList.remove('bg-cyan-500', 'text-slate-950', 'shadow-md', 'shadow-cyan-500/20');
+                    if (btn.dataset.div === '2D ASSET LIST') btn.classList.add('text-cyan-400', 'border-cyan-800/40');
+                    else if (btn.dataset.div === 'FHD MOTION') btn.classList.add('text-purple-400', 'border-purple-800/40');
+                    else if (btn.dataset.div === 'LED MOTION') btn.classList.add('text-emerald-400', 'border-emerald-800/40');
+                }
+            });
+            renderTimeline();
+        };
+
+        // View Mode Switcher (Timeline vs Grid)
+        window.setViewMode = function(mode) {
+            currentViewMode = mode;
+            const timelineBtn = document.getElementById('viewTimelineBtn');
+            const gridBtn = document.getElementById('viewGridBtn');
+            if (mode === 'timeline') {
+                timelineBtn.className = 'p-1.5 rounded-lg text-xs font-semibold text-cyan-400 bg-slate-800 shadow transition';
+                gridBtn.className = 'p-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition';
+            } else {
+                gridBtn.className = 'p-1.5 rounded-lg text-xs font-semibold text-cyan-400 bg-slate-800 shadow transition';
+                timelineBtn.className = 'p-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-slate-200 transition';
+            }
+            renderTimeline();
+        };
+
+        // LED Drive Folder Link Setter
+        window.editLedDriveFolder = function() {
+            const current = storedDriveLinks['LED MOTION'] || '';
+            const newUrl = prompt('Enter Google Drive Folder URL for LED MOTION:', current);
+            if (newUrl !== null) {
+                storedDriveLinks['LED MOTION'] = newUrl.trim();
+                saveData();
+            }
+        };
+
+        // Status Cycling Handler
+        window.cycleStatus = function(id) {
+            const order = ['Pending', 'In Progress', 'Review', 'Completed'];
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+            const nextIdx = (order.indexOf(item.status) + 1) % order.length;
+            item.status = order[nextIdx];
+            saveData();
+            renderTimeline();
+        };
+
+        // Modal Management
+        const itemModal = document.getElementById('itemModal');
+        const modalContainer = document.getElementById('modalContainer');
+        const itemForm = document.getElementById('itemForm');
+
+        window.openModal = function(id = null) {
+            if (id) {
+                const item = items.find(i => i.id === id);
+                if (!item) return;
+                document.getElementById('modalHeading').innerText = 'Edit Deliverable';
+                document.getElementById('formItemId').value = item.id;
+                document.getElementById('formTitle').value = item.title;
+                document.getElementById('formDivision').value = item.division;
+                document.getElementById('formDate').value = item.date;
+                document.getElementById('formStatus').value = item.status;
+                document.getElementById('formDriveLink').value = item.fileLink || '';
+                document.getElementById('formNotes').value = item.notes || '';
+            } else {
+                document.getElementById('modalHeading').innerText = 'Add Deliverable';
+                itemForm.reset();
+                document.getElementById('formItemId').value = '';
+                document.getElementById('formDivision').value = currentDivisionFilter !== 'ALL' ? currentDivisionFilter : '2D ASSET LIST';
+                document.getElementById('formStatus').value = 'Pending';
+            }
+            itemModal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContainer.classList.remove('scale-95');
+            modalContainer.classList.add('scale-100');
+        };
+
+        window.closeModal = function() {
+            modalContainer.classList.remove('scale-100');
+            modalContainer.classList.add('scale-95');
+            itemModal.classList.add('opacity-0', 'pointer-events-none');
+        };
+
+        document.getElementById('addDeliverableBtn').addEventListener('click', () => openModal());
+
+        // Form Submit for Add/Edit
+        itemForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = document.getElementById('formItemId').value;
+            const updatedItem = {
+                id: id || 'item-' + Date.now(),
+                title: document.getElementById('formTitle').value.trim(),
+                division: document.getElementById('formDivision').value,
+                date: document.getElementById('formDate').value.trim(),
+                status: document.getElementById('formStatus').value,
+                fileLink: document.getElementById('formDriveLink').value.trim(),
+                notes: document.getElementById('formNotes').value.trim()
+            };
+
+            if (id) {
+                const index = items.findIndex(i => i.id === id);
+                if (index !== -1) items[index] = updatedItem;
+            } else {
+                items.push(updatedItem);
+            }
+
+            saveData();
+            closeModal();
+            renderTimeline();
+        });
+
+        // Delete Deliverable
+        window.deleteDeliverable = function(id) {
+            const item = items.find(i => i.id === id);
+            if (!item) return;
+            if (confirm(`Are you sure you want to delete "${item.title}"?`)) {
+                items = items.filter(i => i.id !== id);
+                saveData();
+                renderTimeline();
+            }
+        };
+
+        // Status Badge Helper
+        function getStatusBadge(status) {
+            const styles = {
+                'Pending': 'bg-slate-800 text-slate-400 border-slate-700 hover:bg-slate-700',
+                'In Progress': 'bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20',
+                'Review': 'bg-purple-500/10 text-purple-400 border-purple-500/30 hover:bg-purple-500/20',
+                'Completed': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20'
+            };
+            return `<button onclick="cycleStatus('${status.id}')" title="Click to cycle status" class="px-2 py-0.5 rounded-full text-[11px] font-semibold border transition cursor-pointer ${styles[status.status] || styles['Pending']}">
+                ● ${status.status}
+            </button>`;
+        }
+
+        // Division Badge Helper
+        function getDivisionBadge(division) {
+            if (division === '2D ASSET LIST') return '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-cyan-950/80 text-cyan-400 border border-cyan-800/60">2D ASSET</span>';
+            if (division === 'FHD MOTION') return '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-purple-950/80 text-purple-400 border border-purple-800/60">FHD MOTION</span>';
+            return '<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-800/60">LED MOTION</span>';
+        }
+
+        // Main Render Function
+        function renderTimeline() {
+            const container = document.getElementById('timelineContainer');
+            const emptyState = document.getElementById('emptyState');
+            const searchQuery = (document.getElementById('searchInput').value || '').toLowerCase();
+            const statusFilter = document.getElementById('statusFilterSelect').value;
+
+            // Filter items
+            const filtered = items.filter(item => {
+                const matchesDiv = currentDivisionFilter === 'ALL' || item.division === currentDivisionFilter;
+                const matchesStatus = statusFilter === 'ALL' || item.status === statusFilter;
+                const matchesSearch = item.title.toLowerCase().includes(searchQuery) || 
+                                      (item.notes && item.notes.toLowerCase().includes(searchQuery)) ||
+                                      item.date.toLowerCase().includes(searchQuery);
+                return matchesDiv && matchesStatus && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            // Group deliverables by Deliverable Date
+            const grouped = {};
+            filtered.forEach(item => {
+                if (!grouped[item.date]) grouped[item.date] = [];
+                grouped[item.date].push(item);
+            });
+
+            let html = '';
+
+            if (currentViewMode === 'timeline') {
+                html += '<div class="space-y-8 relative before:absolute before:inset-0 before:left-4 md:before:left-8 before:w-0.5 before:bg-slate-800">';
+                
+                Object.keys(grouped).forEach(date => {
+                    const groupItems = grouped[date];
+                    const completedInGroup = groupItems.filter(i => i.status === 'Completed').length;
+                    
+                    html += `
+                        <div class="relative pl-10 md:pl-16 space-y-4">
+                            <!-- Milestone Dot & Header -->
+                            <div class="absolute left-2.5 md:left-6.5 top-1 -translate-x-1/2 w-4 h-4 rounded-full bg-cyan-500 ring-4 ring-slate-950 ring-offset-2 ring-offset-slate-900 flex items-center justify-center"></div>
+                            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-2">
+                                <div class="flex items-center space-x-2">
+                                    <h3 class="text-sm md:text-base font-bold text-white tracking-wide flex items-center gap-1.5">
+                                        <i data-lucide="calendar" class="w-4 h-4 text-cyan-400"></i>
+                                        <span>${date}</span>
+                                    </h3>
+                                    <span class="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">${completedInGroup}/${groupItems.length} Done</span>
+                                </div>
+                            </div>
+
+                            <!-- Deliverable Cards -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                                ${groupItems.map(item => renderCard(item)).join('')}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            } else {
+                // Grid List Mode
+                html += '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">';
+                filtered.forEach(item => {
+                    html += renderCard(item, true);
+                });
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Render Individual Deliverable Card
+        function renderCard(item, showDateBadge = false) {
+            const driveHref = item.fileLink || storedDriveLinks[item.division] || '#';
+            const hasCustomLink = Boolean(item.fileLink);
+
+            return `
+                <div class="glass-card rounded-xl p-3.5 flex flex-col justify-between space-y-3 hover:border-slate-700 transition">
+                    <div>
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                            <div class="flex flex-wrap items-center gap-1.5">
+                                ${getDivisionBadge(item.division)}
+                                ${showDateBadge ? `<span class="text-[10px] text-slate-400 bg-slate-800/80 px-1.5 py-0.5 rounded">${item.date}</span>` : ''}
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <button onclick="openModal('${item.id}')" class="p-1 hover:bg-slate-800 rounded text-slate-400 hover:text-slate-200 transition" title="Edit Item">
+                                    <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                                </button>
+                                <button onclick="deleteDeliverable('${item.id}')" class="p-1 hover:bg-rose-950/40 rounded text-slate-400 hover:text-rose-400 transition" title="Delete">
+                                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <h4 class="text-xs font-semibold text-slate-100 leading-snug">${item.title}</h4>
+                        ${item.notes ? `<p class="text-[11px] text-slate-400 mt-1 italic">${item.notes}</p>` : ''}
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800/60">
+                        ${getStatusBadge(item)}
+                        <a href="${driveHref}" target="_blank" class="inline-flex items-center space-x-1 text-[11px] font-medium text-slate-400 hover:text-cyan-400 transition" title="${hasCustomLink ? 'Open custom asset link' : 'Open division folder'}">
+                            <i data-lucide="folder-up" class="w-3.5 h-3.5 ${hasCustomLink ? 'text-cyan-400' : ''}"></i>
+                            <span>${hasCustomLink ? 'File' : 'Drive'}</span>
+                            <i data-lucide="external-link" class="w-2.5 h-2.5 opacity-60"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize Window
+        window.onload = function() {
+            lucide.createIcons();
+            updateMetrics();
+            renderTimeline();
+        };
+    </script>
+</body>
+</html>
